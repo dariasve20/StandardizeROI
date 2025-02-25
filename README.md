@@ -5,13 +5,15 @@ This is **StandardizeROI**, a **MATLAB** script that helps to standardize the RO
 
 ## How to use it
 
-StandarizeROI receives a coordinate in either MNI and Subject space, a mesh from the SimNIBS simulation output (either the tetahedral mesh or  We suggest to use
+StandarizeROI receives a coordinate in either MNI and Subject space, a mesh from the SimNIBS **simulation output** (either the tetahedral mesh or the middle gray surface). We recommend to use the middle gray surface given that if the tetahedral mesh is no cleaned, might produced issues as the one below (you always can clean the mesh a reran StandarizeROI). 
 
 Example:
 ```
 input.coord_system = 'MNI' % or 'Subject'
 input.target_coordinate = [-46, 45, 38] % Fitzgerald Target for DLPFC from Fox et al...
-input.mesh
+input.mesh = '/mesh.msh'
+input.radius = 10 % spherical ROI of 10 mm radius
+ 
 ```
 
 The ouput will be a plot (optional), with the adjusted coordinate, the average e-field magnitude, normal and tangential componennts (only if the middle gray matter surface was used as input), or just the average e-field magnitude for a tetahedral mesh.
