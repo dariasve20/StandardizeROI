@@ -9,8 +9,9 @@ StandarizeROI receives a coordinate in either MNI and Subject space, a mesh from
 
 Example:
 ```
-input.coord_system = 'MNI'
-input.
+input.coord_system = 'MNI' % or 'Subject'
+input.target_coordinate = [-46, 45, 38] % Fitzgerald Target for DLPFC from Fox et al...
+input.mesh
 ```
 
 The ouput will be a plot (optional), with the adjusted coordinate, the average e-field magnitude, normal and tangential componennts (only if the middle gray matter surface was used as input), or just the average e-field magnitude for a tetahedral mesh.
