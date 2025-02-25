@@ -5,7 +5,7 @@ This is **StandardizeROI**, a **MATLAB** script that helps to standardize the RO
 
 ## How to use it
 
-StandardizeROI receives a coordinate in either MNI or subject space, the radius that defines a spherical ROI, and a mesh from the SimNIBS simulation output (either the tetrahedral mesh or the middle gray surface). We recommend using the middle gray surface, as an uncleaned tetrahedral mesh might produce issues like the one below (you can always clean the mesh and rerun StandardizeROI).
+**StandardizeROI** receives a coordinate in either MNI or subject space, the radius that defines a spherical ROI, and a mesh from the SimNIBS simulation output (either the tetrahedral mesh or the middle gray surface). We recommend using the middle gray surface, as an uncleaned tetrahedral mesh might produce issues like the one below (you can always clean the mesh and rerun StandardizeROI).
 
 Example:
 ```
@@ -19,7 +19,7 @@ standardizeROI(input);
  
 ```
 
-The ouput will be a plot (optional), with the adjusted coordinate, the average e-field magnitude, normal and tangential componennts (only if the middle gray matter surface was used as input), or just the average e-field magnitude for a tetahedral mesh.
+**StandardizeROI** will plot (optional) the input and adjusted coordinates positioned relative to the gray matter. It will also ouput the average e-field magnitude, normal and tangential componennts (only if the middle gray matter surface was used as input), or just the average e-field magnitude for a tetahedral mesh. Finally, it will ouput the number of mesh elements used to calculate the e-field parameters.
 
 ## How to cite
 
