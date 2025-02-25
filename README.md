@@ -10,9 +10,12 @@ StandardizeROI receives a coordinate in either MNI or subject space, the radius 
 Example:
 ```
 input.coord_system = 'MNI' % or 'Subject'
-input.target_coordinate = [-46, 45, 38] % Fitzgerald Target for DLPFC from Fox et al...
+input.target_coordinate = [-46, 45, 38] % Fitzgerald Target in MNI space for DLPFC from Fox et al...
 input.mesh = '/mesh.msh'
 input.radius = 10 % spherical ROI of 10 mm radius
+input.plot_display = 'yes' %
+
+standardizeROI(input);
  
 ```
 
