@@ -3,11 +3,10 @@ This is **StandardizeROI**, a **MATLAB** script that helps to standardize the RO
 
 ![Presentation1](https://github.com/user-attachments/assets/d1897d75-5a90-40f1-8344-b2ea2b30e287)
 
-How to use it:
+#How to use it:
 
 
-
-If this hapen to help you, please cite:
+#How to cite:
 
 
 Contributors:
