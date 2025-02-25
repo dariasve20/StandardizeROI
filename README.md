@@ -22,9 +22,9 @@ standardizeROI(input);
 **StandardizeROI** will plot (optional) the input and adjusted coordinates positioned relative to the gray matter. It will also ouput the average e-field magnitude, normal and tangential componennts (only if the middle gray matter surface was used as input), or just the average e-field magnitude for a tetahedral mesh. Finally, it will output the number of mesh elements used to calculate the e-field parameters.
 
 ## How to cite
+Coming soon...
 
-
-Contributors:
+## Contributors:
 
 - Diego E. Arias
 - Christopher T. Sege
