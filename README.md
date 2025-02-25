@@ -1,6 +1,5 @@
 This is **StandardizeROI**, a **MATLAB** script that helps to standardize the ROI extraction for e-field calculation when using **SimNIBS** pipeline. There are cases when coordinates obtained from the literature fall outside the gray matter layer. This causes ROI to extract few data from superficial regions, overestimating the average e-field magnitude. This simple script takes as input a coordinate of interest in either MNI or native subject space and returns the closest gray matter surface from the coordinate of interest using the Euclidean distance formula. This adjustment of the ROI placement provides a more consistent approach that allows calculating the average e-field in an ROI based on a similar amount of mesh elements (tetrahedra or nodes) between and within subjects.
 
-
 ![Presentation1](https://github.com/user-attachments/assets/d1897d75-5a90-40f1-8344-b2ea2b30e287)
 
 ## How to use it
@@ -21,6 +20,10 @@ standardizeROI(input);
 
 **StandardizeROI** will plot (optional) the input and adjusted coordinates positioned relative to the gray matter. It will also ouput the average e-field magnitude, normal and tangential componennts (only if the middle gray matter surface was used as input), or just the average e-field magnitude for a tetahedral mesh. Finally, it will output the number of mesh elements used to calculate the e-field parameters.
 
+## Dependencies
+
+Matlab and SimNIBS needs to be installed.
+
 ## How to cite
 Coming soon...
 
@@ -31,3 +34,5 @@ Coming soon...
 - Lisa M. McTeague
 - Kirstin-Friederike Heise
 - Kevin A. Caulfield
+
+
