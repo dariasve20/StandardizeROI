@@ -5,7 +5,7 @@ This is **StandardizeROI**, a **MATLAB** script that helps to standardize the RO
 
 ## How to use it
 
-StandarizeROI receives a coordinate in either MNI and Subject space, a mesh from the SimNIBS **simulation output** (either the tetahedral mesh or the middle gray surface). We recommend to use the middle gray surface given that if the tetahedral mesh is no cleaned, might produced issues as the one below (you always can clean the mesh a reran StandarizeROI). 
+StandardizeROI receives a coordinate in either MNI or subject space, the radius that defines a spherical ROI, and a mesh from the SimNIBS simulation output (either the tetrahedral mesh or the middle gray surface). We recommend using the middle gray surface, as an uncleaned tetrahedral mesh might produce issues like the one below (you can always clean the mesh and rerun StandardizeROI).
 
 Example:
 ```
