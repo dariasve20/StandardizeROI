@@ -5,6 +5,11 @@ This is **StandardizeROI**, a **MATLAB** script that helps to standardize the RO
 
 ## How to use it
 
+StandarizeROI, will receive as an input a coordinate in either MNI and Subject space, a mes We suggest to use
+
+input.coord_system = 'MNI'
+
+The ouput will be a plot (optional), with the adjusted coordinate, the average e-field magnitude, normal and tangential componennts (only if the middfle gray matter surface was used as input), or just the average e-field magnitude for a tetahedral mesh.
 
 ## How to cite
 
