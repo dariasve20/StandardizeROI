@@ -24,7 +24,7 @@ sub_coord_target_adj = findClosest3DCoord(middle_gm_surf.nodes, sub_coord_target
 
 % extract a section of gray matter for visualization
 r = input.radius*4.5;
-[surf1, msurf] = extractSphereROI(r, sub_coord_target, middle_gm_surf);
+[~, msurf] = extractSphereROI(r, sub_coord_target, middle_gm_surf);
 
 % Calculate average e-field magnitude
 
@@ -45,81 +45,72 @@ numnodes = [length(m_roi_elem_target.nodes) length(m_roi_elem_target_adj.nodes)]
 
 % output results in the command window
 
+text_input = ['Raw target ', newline, 'Avg. Efield Magn : ', num2str(avg_field_roi_E_magn_target),' V/m', newline, 'N of elements: ', num2str(numnodes(1)), newline];
+
 disp([newline '-------------------------------------------------'])
 disp('--- Efield paramemeters for input coordinate ----')
 disp('-------------------------------------------------')
-disp(['Avg. Efield Magnitude: ', num2str(avg_field_roi_E_magn_target), ' V/m'])
-disp(['Number of elements: ', num2str(numnodes(1)), newline])
+disp(text_input)
+
+
+text_stdROI = ['StandardizeROI target ', newline, 'Avg. Efield Magn : ', num2str(avg_field_roi_E_magn_target_adj),' V/m', newline, 'N of elements: ', num2str(numnodes(2)), newline];
 
 disp([newline '-------------------------------------------------'])
 disp('--- Efield paramemeters after standardizeROI ----')
 disp('-------------------------------------------------')
-disp(['Avg. Efield Magnitude: ', num2str(avg_field_roi_E_magn_target_adj), ' V/m'])
-disp(['Number of elements: ', num2str(numnodes(2))])
+disp(text_stdROI)
+
 
 % plots
 
 if strcmp(input.plot_display, 'yes')
 
     figure,
-    subplot(121)
-    subtitle(['Raw Target: ', num2str(avg_field_roi_E_magn_target), 'V/m'])
+    subtitle('Coodinates relative to the graymatter mesh')
     mesh_show_surface(msurf,'showSurface',true,'surfaceColor',[0.7 0.7 0.7], 'facealpha', 0.5,'haxis',gca);
-    %mesh_show_surface(m_roi_elem_target,'showSurface',true,'surfaceColor',[1 0 0],'haxis',gca);
-    drawROI(sub_coord_target, input.radius, 'r')
-    view(-1.603900050839838,45.710847384029769)
+    drawROI(sub_coord_target, 1, 'r')
+    view(-1.6, 45.7)
 
-    subplot(122)
-    subtitle(['StandardizeROI target: ', num2str(avg_field_roi_E_magn_target_adj),'V/m'])
-    mesh_show_surface(msurf,'showSurface',true,'surfaceColor',[0.7 0.7 0.7], 'facealpha', 0.5,'haxis',gca);
-    %mesh_show_surface(m_roi_elem_target_adj,'showSurface',true,'surfaceColor',[0 1 0],'haxis',gca);
-    drawROI(sub_coord_target_adj, input.radius,'b')
-    view(-1.603900050839838,45.710847384029769)
-    %%view(60,60)%rotate(h,[1 0 0],25)
-
-
-
-
-    % another view
+    drawROI(sub_coord_target_adj, 1,'b')
+    view(-1.6, 45.7)
+  
 
     figure,
     subplot(121)
-    subtitle('Raw Target')
-    mesh_show_surface(msurf,'showSurface',true,'surfaceColor',[0.5 0.5 0.5], 'facealpha', 0.5,'haxis',gca);
-    %mesh_show_surface(m_roi_elem_target,'showSurface',true,'surfaceColor',[1 0 0],'haxis',gca);
-    %drawROI(sub_coord_target, 10)
-    lighting gouraud
-    hlight=camlight('headlight');
-    set(gca,'UserData',hlight);
-    view(-1.239850434788998e+02,35.608441171615468)
+    subtitle(text_input)
+    mesh_show_surface(msurf,'showSurface',true,'surfaceColor',[0.7 0.7 0.7], 'facealpha', 0.5,'haxis',gca);
+    drawROI(sub_coord_target, input.radius, 'r')
+    view(-1.6, 45.7)
 
     subplot(122)
-    subtitle('StandardizeROI target')
+    subtitle(text_stdROI)
+    mesh_show_surface(msurf,'showSurface',true,'surfaceColor',[0.7 0.7 0.7], 'facealpha', 0.5,'haxis',gca);
+    drawROI(sub_coord_target_adj, input.radius,'b')
+    view(-1.6, 45.7)
+
+
+    figure,
+    subplot(121)
+    subtitle(text_input)
+    mesh_show_surface(msurf,'showSurface',true,'surfaceColor',[0.5 0.5 0.5], 'facealpha', 0.5,'haxis',gca);
+    try
+        mesh_show_surface(m_roi_elem_target,'showSurface',true,'surfaceColor',[1 0 0],'haxis',gca);
+    catch
+        warning('There is no enough elements to display surface')
+          lighting gouraud
+          hlight=camlight('headlight');
+          set(gca,'UserData',hlight);
+    end
+  
+    view(-1.23e+02, 35.6)
+
+    subplot(122)
+    subtitle(text_stdROI)
     mesh_show_surface(msurf,'showSurface',true,'surfaceColor',[0.5 0.5 0.5], 'facealpha', 0.5,'haxis',gca);
     mesh_show_surface(m_roi_elem_target_adj,'showSurface',true,'surfaceColor',[0 0 1],'haxis',gca);
-    %drawROI(sub_coord_target_adj, 10)
-    view(-1.239850434788998e+02,35.608441171615468)
-    %view(60,60)%rotate(h,[1 0 0],25)
+    view(-1.23e+02, 35.6)
 
 
-    % Fig 1.A
-
-    figure,
-    %subplot(121)
-    subtitle('Raw Target')
-    mesh_show_surface(msurf,'showSurface',true,'surfaceColor',[0.7 0.7 0.7], 'facealpha', 0.5,'haxis',gca);
-    %mesh_show_surface(m_roi_elem_target,'showSurface',true,'surfaceColor',[1 0 0],'haxis',gca);
-    drawROI(sub_coord_target, 1, 'r')
-    view(-1.603900050839838,45.710847384029769)
-
-    %subplot(122)
-    %subtitle('StandardizeROI target')
-    %mesh_show_surface(msurf,'showSurface',true,'surfaceColor',[0.7 0.7 0.7], 'facealpha', 0.5,'haxis',gca);
-    %mesh_show_surface(m_roi_elem_target_adj,'showSurface',true,'surfaceColor',[0 1 0],'haxis',gca);
-    drawROI(sub_coord_target_adj, 1,'b')
-    %drawROI(vm, 1,'g')
-    view(-1.603900050839838,45.710847384029769)
-    %%view(60,60)%rotate(h,[1 0 0],25)
 
 end
 end
