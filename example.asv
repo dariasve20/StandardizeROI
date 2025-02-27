@@ -21,10 +21,9 @@ input.plot_display = 'yes'; % or 'no'
 input.radius = 10; % define a spherical ROI of 10 mm radius
 
 % add your own mesh
-%input.mesh = '/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/NA111_41/m2m_NA111_41/Fitzgerald/subject_overlays/NA111_41_TMS_1-0001_MagVenture_Cool-B65_scalar_central.msh';
+input.mesh = '/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/NA111_41/m2m_NA111_41/Fitzgerald/subject_overlays/NA111_41_TMS_1-0001_MagVenture_Cool-B65_scalar_central.msh';
 %input.mesh = '/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/NA111_41/m2m_NA111_41/Fitzgerald/NA111_41_TMS_1-0001_MagVenture_Cool-B65_scalar.msh';
 
 %input.mesh='/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/NA111_41/m2m_NA111_41/BA46/NA111_41_TMS_1-0001_MagVenture_Cool-B65_scalar.msh'
 %input.mesh='/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/113122_41/m2m_113122_41/Fitzgerald/113122_41_TMS_1-0001_MagVenture_Cool-B65_scalar.msh'
-input.mesh='/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/113122_41/m2m_113122_41/Fitzgerald/subject_overlays/113122_41_TMS_1-0001_MagVenture_Cool-B65_scalar_central.msh'
 standardizeROI(input)
