@@ -22,7 +22,15 @@ standardizeROI(input);
 
 ## Dependencies
 
-Matlab and SimNIBS needs to be installed.
+MATLAB and SimNIBS needs to be installed.
+
+## Contigencies
+
+We used code from other projects:
+
+https://github.com/SVH35/GetTissueThickness
+
+https://github.com/simnibs/simnibs
 
 ## How to cite
 Coming soon...
