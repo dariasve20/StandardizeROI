@@ -1,6 +1,6 @@
 %% Example to test standardizeROI
 %-------------------------------
-% Diego E. Arias, Feb 2025            
+% Diego E. Arias, PhD Feb 2025            
 %-------------------------------
 
 %close all
@@ -8,12 +8,13 @@ clearvars
 clc
 
 % make sure you add simNIBS to the path (use your own path)
-addpath('/Users/ariasd/Applications/SimNIBS-4.1/simnibs_env/lib/python3.9/site-packages/simnibs/matlab_tools');
-% make sure you add standarizeROI to the path
-addpath('/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI')
-addpath '/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/functions'
+addpath('.../Applications/SimNIBS-4.1/simnibs_env/lib/python3.9/site-packages/simnibs/matlab_tools');
 
-% create struct required by standarizeROI
+% make sure you add standardizeROI to the path
+addpath('.../StandarizeROI')
+addpath '.../StandarizeROI/functions'
+
+% create input struct required by standardizeROI
 
 input.coord_system = 'MNI'; % or 'Subject 
 input.target_coordinate = [-46,45,38]; % Fitzgerald Target in MNI space for DLPFC from Fox et al...
@@ -21,10 +22,7 @@ input.plot_display = 'yes'; % or 'no'
 input.radius = 10; % define a spherical ROI of 10 mm radius
 
 % add your own mesh
-%input.mesh = '/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/NA111_41/m2m_NA111_41/Fitzgerald/subject_overlays/NA111_41_TMS_1-0001_MagVenture_Cool-B65_scalar_central.msh';
-%input.mesh = '/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/NA111_41/m2m_NA111_41/Fitzgerald/NA111_41_TMS_1-0001_MagVenture_Cool-B65_scalar.msh';
+input.mesh = 'your_simulation.msh';
 
-%input.mesh='/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/NA111_41/m2m_NA111_41/BA46/NA111_41_TMS_1-0001_MagVenture_Cool-B65_scalar.msh'
-%input.mesh='/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/113122_41/m2m_113122_41/Fitzgerald/113122_41_TMS_1-0001_MagVenture_Cool-B65_scalar.msh'
-input.mesh='/Users/ariasd/Library/CloudStorage/OneDrive-MedicalUniversityofSouthCarolina/Documents/GitHub/StandarizeROI/113122_41/m2m_113122_41/Fitzgerald/subject_overlays/113122_41_TMS_1-0001_MagVenture_Cool-B65_scalar_central.msh'
-standardizeROI(input)
+[coords, params_raw, params_adj] = standardizeROI(input);
+

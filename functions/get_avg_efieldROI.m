@@ -21,10 +21,18 @@ if strcmp(type_element,'node')
 
 
     % return avg e-field magnitude, normal, and tangential components 
-    
-    ef_results.avg_roi_E_magn = sum(field_E_magn(roi_elem) .* nodes_areas(roi_elem))/sum(nodes_areas(roi_elem));
-    ef_results.avg_roi_E_normal = sum(field_E_normal(roi_elem) .* nodes_areas(roi_elem))/sum(nodes_areas(roi_elem));
-    ef_results.avg_roi_E_tangent = sum(field_E_tangent(roi_elem) .* nodes_areas(roi_elem))/sum(nodes_areas(roi_elem));
+
+    sum_e_magn = field_E_magn(roi_elem) .* nodes_areas(roi_elem);
+    sum_e_norm = field_E_normal(roi_elem) .* nodes_areas(roi_elem);
+    sum_e_tang = field_E_tangent(roi_elem) .* nodes_areas(roi_elem);
+
+    ef_results.avg_roi_E_magn = sum(sum_e_magn)/sum(nodes_areas(roi_elem));
+    ef_results.avg_roi_E_normal = sum(sum_e_norm)/sum(nodes_areas(roi_elem));
+    ef_results.avg_roi_E_tangent = sum(sum_e_tang)/sum(nodes_areas(roi_elem));
+
+    ef_results.sum_e_magn = sum_e_magn;
+    ef_results.sum_e_norm = sum_e_norm;
+    ef_results.sum_e_tang = sum_e_tang;
 
 else
 

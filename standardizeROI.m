@@ -1,15 +1,70 @@
-function standardizeROI(input)
-% ADDME test
-
-% check the coordinate system. All calculations are done in Subject space
+function [coords, efield_raw, efield_adj] = standardizeROI(input)
+% This is StandardizeROI, a MATLAB script that helps to standardize the ROI extraction 
+% for e-field calculation when using SimNIBS pipeline. There are cases when coordinates 
+% obtained from the literature fall outside the gray matter layer. This causes ROI to extract 
+% few data from superficial regions, overestimating the average e-field magnitude. 
+% This simple script takes as input a coordinate of interest in either MNI or native subject 
+% space and returns the closest gray matter surface from the coordinate of interest using the 
+% Euclidean distance formula. This adjustment of the ROI placement provides a more consistent 
+% approach that allows calculating the average e-field in an ROI, based on a similar amount of 
+% mesh elements (tetrahedra or nodes) between and within subjects.
+%
+% Syntax
+%
+% input.coord_system = 'MNI' % or 'Subject'
+% input.target_coordinate = [-46, 45, 38] % Fitzgerald Target in MNI space for DLPFC from Fox et al...
+% input.mesh = '/mesh.msh'
+% input.radius = 10 % spherical ROI of 10 mm radius
+% input.plot_display = 'yes' 
+%
+% [coords, efield_raw, efield_adj] = standardizeROI(input);
+%
+% Input Description
+%
+% input.coord_system: MNI or Subject
+% input.target_coordinate: MNI or Subject space coordinate (X,Y,Z)
+% input.mesh: mesh, could be any simulation output; middle gray matter
+% surface (recommended) or tetrahedral mesh.
+% input.radius: radius of a spherical ROI (in mm)
+% input.plot_display: yes (plot ROIs relative to the gray matter surface) or no
+%
+% Output Description
+% 
+% Output .mat file contain:
+%
+% coords: struct that contains raw and adjusted coordinate in native space
+% - sub_coord_target: raw coordinate in native space
+% - sub_coord_target_adj: adjusted coodinate in native space
+%
+% efield_raw: struct storing parameters for RAW coordinate
+% - avg_roi_E_magn: avg. E magn at ROI
+% - avg_roi_normal: avg. E normal component (only if middle gray matter surface is used)
+% - avg_roi_tanget: avg. E tangential component (only if middle gray matter surface is used)
+% - sum_e_magn: vector with e-field values used to calculate avg. E magn.
+% - sum_e_normal: vector with e-field values used to calculate avg. E normal component.
+% - sum_e_tanget: vector with e-field values used to calculate avg. E
+% tangential component
+%
+% efield_adj: parameters for adjusted coordinate
+% - avg_roi_E_magn: avg. E magn at ROI
+% - avg_roi_normal: avg. E normal component (only if middle gray matter surface is used)
+% - avg_roi_tanget: avg. E tangential component (only if middle gray matter surface is used)
+% - sum_e_magn: vector with e-field values used to calculate avg. E magn.
+% - sum_e_normal: vector with e-field values used to calculate avg. E normal component.
+% - sum_e_tanget: vector with e-field values used to calculate avg. E
+% tangential component
+%
+%
+% Diego E. Arias, PhD. 2025
 
 if strcmp(input.coord_system, 'MNI')
+    disp(fullfile(pwd))
     sub_coord_target = mni2subject_coords(input.target_coordinate, fullfile(pwd));
 elseif strcmp(input.coord_system, 'Subject')
     sub_coord_target = input.target_coordinate;
 end
 
-% Define surf and load surface overlay .msh file
+% load gray matter surface  .msh file
 gm_surf = mesh_load_gmsh4(input.mesh);
 
 
@@ -51,27 +106,27 @@ r = input.radius*5;
 % elements used in its calculation
 
 % e-field for raw coordinate
-e_field_target = get_avg_efieldROI(type_element, gm_surf, roi_elem_target);
+efield_raw = get_avg_efieldROI(type_element, gm_surf, roi_elem_target);
 
 
 % e-field after adjustment
-e_field_target_adj = get_avg_efieldROI(type_element, gm_surf, roi_elem_target_adj);
+efield_adj = get_avg_efieldROI(type_element, gm_surf, roi_elem_target_adj);
 
 
 
 % output results in the command window
 
 
-if length(fieldnames(e_field_target_adj)) > 1
+if length(fieldnames(efield_adj)) > 1
 
-    text_input = ['Raw target ', newline, 'Avg. Efield Magn : ', num2str(e_field_target.avg_roi_E_magn),' V/m',...
-        newline, 'Avg. normal component : ', num2str(e_field_target.avg_roi_E_normal),' V/m',...
-        newline, 'Avg. tangential component : ', num2str(e_field_target.avg_roi_E_tangent),' V/m',...
+    text_input = ['Raw target ', newline, 'Avg. Efield Magn : ', num2str(efield_raw.avg_roi_E_magn),' V/m',...
+        newline, 'Avg. normal component : ', num2str(efield_raw.avg_roi_E_normal),' V/m',...
+        newline, 'Avg. tangential component : ', num2str(efield_raw.avg_roi_E_tangent),' V/m',...
         newline, 'N of elements: ', num2str(n_elem_target), newline];
     
-    text_stdROI = ['StandardizeROI target ', newline, 'Avg. Efield Magn : ', num2str(e_field_target_adj.avg_roi_E_magn),' V/m',...
-        newline, 'Avg. normal component : ', num2str(e_field_target_adj.avg_roi_E_normal),' V/m',...
-        newline, 'Avg. tangential component : ', num2str(e_field_target_adj.avg_roi_E_tangent),' V/m',...
+    text_stdROI = ['StandardizeROI target ', newline, 'Avg. Efield Magn : ', num2str(efield_adj.avg_roi_E_magn),' V/m',...
+        newline, 'Avg. normal component : ', num2str(efield_adj.avg_roi_E_normal),' V/m',...
+        newline, 'Avg. tangential component : ', num2str(efield_adj.avg_roi_E_tangent),' V/m',...
         newline, 'N of elements: ', num2str(n_elem_target_adj), newline];
 else
 
@@ -241,4 +296,10 @@ if strcmp(input.plot_display, 'yes')
     end
 
 end
+
+coords.raw = sub_coord_target;
+coords.adjusted = sub_coord_target_adj;
+
+save('avg_efield_params.mat', 'efield_raw', 'efield_adj', "coords")
+
 end
