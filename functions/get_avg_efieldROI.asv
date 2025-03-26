@@ -1,0 +1,51 @@
+function [avg_Efield_roi] = get_avg_efieldROI(type_element, gm_surf, roi_elem)
+
+if strcmp(type_element,'node')
+
+    nodes_areas = mesh_get_node_areas(gm_surf);
+
+    %calculate the average E-field magnitude based on nodes elements
+    field_name = 'E_magn';
+    field_idx = get_field_idx(gm_surf, field_name, 'node');
+    field_E_magn = gm_surf.node_data{field_idx}.data;
+
+    %Extract E_normal
+    field_name = 'E_normal';
+    field_idx = get_field_idx(gm_surf, field_name, 'node');
+    field_E_normal = gm_surf.node_data{field_idx}.data;
+
+    % Extract E_tangent
+    field_name = 'E_tangent';
+    field_idx = get_field_idx(surf, field_name, 'node');
+    field_E_tangent = surf.node_data{field_idx}.data;
+
+
+
+
+    % return avg e-field magnitude 
+    
+    ef.results.avg_roi_E_magn = sum(field_E_magn(roi_elem) .* nodes_areas(roi_elem))/sum(nodes_areas(roi_elem));
+    ef_results.avg_roi_E_normal = sum(field_E_normal(roi) .* nodes_areas(roi))/sum(nodes_areas(roi));
+    ef_results.avg_roi_E_tangent = sum(field_E_tangent(roi) .* nodes_areas(roi))/sum(nodes_areas(roi));
+
+
+
+
+
+
+else
+
+    elm_vols = mesh_get_tetrahedron_sizes(gm_surf);
+    
+    % calculate the average E-field magnitude based on tetrahedral elements
+    field_name = 'magnE';
+    field_idx = get_field_idx(gm_surf, field_name, 'elements');
+    field_E_magn = gm_surf.element_data{field_idx}.tetdata;
+
+    % return avg e-field magnitude and number of elements used for its
+    % calculation
+    avg_Efield_roi = sum(field_E_magn(roi_elem) .* elm_vols(roi_elem))/sum(elm_vols(roi_elem));
+    %num_elem = length(m_roi_elem.tetrahedra);
+end
+
+end
