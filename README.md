@@ -33,7 +33,7 @@ https://github.com/SVH35/GetTissueThickness
 https://github.com/simnibs/simnibs
 
 ## How to cite
-D. E. Arias, C. T. Sege, L. M. McTeague, K.-F. Heise, and K. A. Caulfield, “Standardizing ROI placement significantly increases the within- and between-subject reliability of electric field models,” Brain Stimulation, vol. 18, no. 4, pp. 1137–1140, Jul. 2025, doi: https://10.1016/j.brs.2025.05.135
+D. E. Arias, C. T. Sege, L. M. McTeague, K.-F. Heise, and K. A. Caulfield, “Standardizing ROI placement significantly increases the within- and between-subject reliability of electric field models,” Brain Stimulation, vol. 18, no. 4, pp. 1137–1140, Jul. 2025, doi: https://doi.org/10.1016/j.brs.2025.05.135
 
 
 ## Contributors:
